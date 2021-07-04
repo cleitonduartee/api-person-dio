@@ -20,7 +20,7 @@ public class Phone {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private Type typePhone;
+    private Type type;
 
     @Column(nullable = false)
     private String number;

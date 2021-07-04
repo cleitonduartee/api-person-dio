@@ -1,5 +1,9 @@
-package cleiton.duarte.api.person.dto;
+package cleiton.duarte.api.person.dto.request;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.Valid;
@@ -9,6 +13,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@Builder
 public class PersonDTO {
     private Long id;
 
