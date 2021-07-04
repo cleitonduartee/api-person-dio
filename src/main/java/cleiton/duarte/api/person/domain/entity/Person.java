@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +15,23 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Data
+@Entity
 public class Person {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String firstName;
+
     private String lastName;
+
+    @Column(unique = true)
     private String cpf;
+
     private LocalDate birthDate;
 
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Phone> phones = new ArrayList<>();
 
     public Person(Long id, String firstName, String lastName, String cpf, LocalDate birthDate) {
