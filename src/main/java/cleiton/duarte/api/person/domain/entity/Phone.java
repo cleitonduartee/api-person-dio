@@ -1,6 +1,6 @@
 package cleiton.duarte.api.person.domain.entity;
 
-import cleiton.duarte.api.person.domain.enuns.Type;
+import cleiton.duarte.api.person.domain.enuns.PhoneType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,19 +8,21 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@AllArgsConstructor
-@NoArgsConstructor
+
+@Entity
 @Data
 @Builder
-@Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Phone {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private Type type;
+    @Column(nullable = false)
+    private PhoneType type;
 
     @Column(nullable = false)
     private String number;
