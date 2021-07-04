@@ -20,5 +20,5 @@ public class Phone {
 
     @Enumerated(EnumType.STRING)
     private Type typePhone;
-    private Integer number;
+    private String number;
 }

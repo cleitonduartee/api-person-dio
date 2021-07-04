@@ -7,7 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +19,7 @@ import java.util.List;
 @Data
 @Entity
 public class Person {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -34,11 +36,11 @@ public class Person {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<Phone> phones = new ArrayList<>();
 
-    public Person(Long id, String firstName, String lastName, String cpf, LocalDate birthDate) {
+    public Person(Long id, String firstName, String lastName, String cpf, String birthDate) throws ParseException {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.cpf = cpf;
-        this.birthDate = birthDate;
+        this.birthDate = LocalDate.parse(birthDate);
     }
 }
