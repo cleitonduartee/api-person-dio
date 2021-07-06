@@ -30,6 +30,9 @@ public class PersonController {
     public PersonDTO created(@RequestBody @Valid PersonDTO personDTO){
 
         return personService.createdPerson(personDTO);
-
+    }
+    @GetMapping("/{id}")
+    public PersonDTO findById(@PathVariable Long id){
+        return personService.findById(id);
     }
 }
