@@ -39,4 +39,9 @@ public class PersonController {
     public List<PersonDTO> findAll (){
         return personService.findAll();
     }
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id){
+        personService.delete(id);
+    }
 }

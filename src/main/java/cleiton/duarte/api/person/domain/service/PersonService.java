@@ -42,4 +42,9 @@ public class PersonService {
                 .map(person -> personMapper.toDTO(person))
                 .collect(Collectors.toList());
     }
+
+    public void delete(Long id) {
+        findById(id);
+        personRepository.deleteById(id);
+    }
 }
