@@ -2,6 +2,7 @@ package cleiton.duarte.api.person.controller;
 
 import cleiton.duarte.api.person.domain.entity.Person;
 import cleiton.duarte.api.person.domain.entity.Phone;
+import cleiton.duarte.api.person.domain.service.PersonService;
 import cleiton.duarte.api.person.dto.request.PersonDTO;
 import cleiton.duarte.api.person.dto.request.PhoneDTO;
 import cleiton.duarte.api.person.dto.response.MessageDTO;
@@ -22,16 +23,13 @@ import java.util.stream.Collectors;
 @RequestMapping("api/v1/people")
 public class PersonController {
 
-    private PersonRepository personRepository;
-
-    private final PersonMapper personMapper = PersonMapper.INSTANCE;
+   private PersonService personService;
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public PersonDTO created(@RequestBody @Valid PersonDTO personDTO){
-        Person person = personMapper.toModel(personDTO);
-        person = personRepository.save(person);
-        return personMapper.toDTO(person);
+
+        return personService.createdPerson(personDTO);
 
     }
 }
