@@ -35,4 +35,8 @@ public class PersonController {
     public PersonDTO findById(@PathVariable Long id){
         return personService.findById(id);
     }
+    @GetMapping
+    public List<PersonDTO> findAll (){
+        return personService.findAll();
+    }
 }

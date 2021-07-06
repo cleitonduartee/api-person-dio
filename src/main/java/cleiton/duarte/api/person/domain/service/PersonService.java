@@ -9,6 +9,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @AllArgsConstructor
 @Service
 public class PersonService {
@@ -27,5 +30,12 @@ public class PersonService {
                 .orElseThrow(()->new NotFoundResourceException(id));
 
         return personMapper.toDTO(person);
+    }
+
+    public List<PersonDTO> findAll() {
+        return personRepository.findAll()
+                .stream()
+                .map(person -> personMapper.toDTO(person))
+                .collect(Collectors.toList());
     }
 }
