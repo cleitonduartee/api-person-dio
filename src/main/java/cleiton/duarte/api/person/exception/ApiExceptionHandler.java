@@ -52,4 +52,19 @@ public class ApiExceptionHandler {
 
         return ResponseEntity.status(status).body(validation);
     }
+    @ExceptionHandler(CpfDuplicationException.class)
+    public ResponseEntity<StandardError> cpfDuplicate(CpfDuplicationException e, HttpServletRequest request){
+        String err = "CPF JA ESTÁ CADASTRADO";
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        StandardError error = StandardError
+                .builder()
+                .timestamp(Instant.now())
+                .message(e.getMessage())
+                .error(err)
+                .path(request.getRequestURI())
+                .status(status.value())
+                .build();
+
+        return ResponseEntity.status(status).body(error);
+    }
 }

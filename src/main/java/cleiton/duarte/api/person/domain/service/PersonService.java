@@ -2,11 +2,12 @@ package cleiton.duarte.api.person.domain.service;
 
 import cleiton.duarte.api.person.domain.entity.Person;
 import cleiton.duarte.api.person.dto.request.PersonDTO;
+import cleiton.duarte.api.person.exception.CpfDuplicationException;
 import cleiton.duarte.api.person.exception.NotFoundResourceException;
 import cleiton.duarte.api.person.mapper.PersonMapper;
 import cleiton.duarte.api.person.repository.PersonRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,9 +21,12 @@ public class PersonService {
     private PersonRepository personRepository;
 
     public PersonDTO createdPerson(PersonDTO personDTO){
-        Person person = personMapper.toModel(personDTO);
-        person = personRepository.save(person);
-        return personMapper.toDTO(person);
+        try{
+            Person person = personRepository.save(personMapper.toModel(personDTO));
+            return personMapper.toDTO(person);
+        }catch (DataIntegrityViolationException e){
+            throw new CpfDuplicationException(e.getMessage());
+        }
     }
 
     public PersonDTO findById(Long id) {
